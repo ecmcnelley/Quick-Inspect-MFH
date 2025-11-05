@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: Build & Deploy (Pages + esbuild)
 
 on:
   push:
@@ -15,7 +15,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  deploy:
+  build-and-deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -24,13 +24,32 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Initialize project and install deps
+        run: |
+          npm init -y
+          npm install react react-dom lucide-react
+          npm install --save-dev esbuild
+
+      - name: Build with esbuild
+        run: |
+          npx esbuild app-entry.jsx \
+            --bundle \
+            --minify \
+            --sourcemap \
+            --outfile=bundle.js
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.'
+          path: "."
 
       - name: Deploy to GitHub Pages
         id: deployment
