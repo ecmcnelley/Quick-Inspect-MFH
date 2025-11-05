@@ -101,3 +101,123 @@ code {
   border-radius: 3px;
   font-family: monospace;
 }
+/* ------ JSX app polish (target everything inside #root) ------ */
+#root {
+  /* your root is already wrapped in .card from index.html */
+}
+
+/* Headings inside the app */
+#root h1 { 
+  font-size: 2.25rem; 
+  line-height: 1.2; 
+  margin: 0 0 8px; 
+}
+#root h2 {
+  font-size: 1.35rem;
+  margin: 18px 0 8px;
+  color: #667eea; /* match card section titles */
+  display: flex; 
+  align-items: center; 
+  gap: 8px;
+}
+
+/* Subtle subtitle text (the “HUD | HOME | …” line) */
+#root p, #root .subtle { 
+  color: #4b5563; 
+  margin: 0 0 12px; 
+}
+
+/* Wizard meta (Step 1 of 5, tabs, etc.) */
+#root .wizard-meta,
+#root .tabs,
+#root .progressbar { 
+  margin: 8px 0 14px; 
+  color: #111827; 
+}
+
+/* Form layout: consistent spacing and full-width inputs */
+#root label { 
+  display: inline-block; 
+  font-weight: 600; 
+  margin: 6px 0 4px; 
+}
+#root input[type="text"],
+#root input[type="date"],
+#root input[type="number"],
+#root select,
+#root textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: #fff;
+  font-size: 0.98rem;
+  outline: none;
+}
+#root input:focus,
+#root select:focus,
+#root textarea:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102,126,234,.15);
+}
+
+/* Checkbox/radio groups read nicely without changing JSX */
+#root .checkbox-row { 
+  display: flex; 
+  flex-wrap: wrap; 
+  gap: 10px 16px; 
+  margin: 4px 0 10px;
+}
+#root .checkbox-row label { 
+  display: inline-flex; 
+  align-items: center; 
+  gap: 8px; 
+  font-weight: 500; 
+}
+
+/* Fieldset styling */
+#root fieldset {
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin: 14px 0;
+}
+#root legend {
+  padding: 0 6px;
+  font-weight: 700;
+  color: #667eea;
+}
+
+/* Two-column grid for forms on desktop, single on mobile */
+#root .form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px 16px;
+}
+@media (min-width: 720px) {
+  #root .form-grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* Buttons */
+#root button, 
+#root .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: #667eea;
+  color: #fff;
+  border: 0;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+#root .btn-secondary { background: #374151; }
+#root button[disabled] { opacity: .6; cursor: not-allowed; }
+
+/* Nav buttons row */
+#root .nav { display: flex; gap: 8px; margin-top: 16px; }
+
+/* Tighten long paragraphs under section headers */
+#root .help, 
+#root .note { color: #6b7280; font-size: .95rem; }
