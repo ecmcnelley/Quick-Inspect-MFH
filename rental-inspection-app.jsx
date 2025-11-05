@@ -179,14 +179,11 @@ function RentalInspectionApp() {
     const initial =
       inspectionData.tenantInitial ||
       (inspectionData.tenantFirstName ? inspectionData.tenantFirstName[0] : "");
-    // “LastName – Bi-annual Unit Inspection – YYYY-MM-DD” (you asked for this format earlier)
     return `${last} – Bi-annual Unit Inspection – ${yyyy}-${mm}-${dd}`;
   }, [inspectionData]);
 
-  // Report
   const handleGenerateReport = () => {
     const data = collectFormValues("#root");
-    // prepend a few key things that aren’t directly in labels
     data.unshift(
       { label: "Programs", value: inspectionData.programType.join(", ") },
       { label: "Rooms Count", value: rooms.length },
@@ -213,7 +210,7 @@ function RentalInspectionApp() {
         {[1, 2, 3, 4, 5].map((n) => (
           <button
             key={n}
-            type="button"
+            type="button"                 // prevent implicit submit
             className={`btn ${n === currentStep ? "" : "btn-secondary"}`}
             onClick={() => goToStep(n)}
             aria-label={`Go to step ${n}`}
@@ -259,6 +256,7 @@ function RentalInspectionApp() {
           <input
             id="propertyName"
             type="text"
+            autoComplete="off"
             placeholder="e.g., Park Village 1 & 2"
             value={inspectionData.propertyName}
             onChange={(e) => updateInspectionData("propertyName", e.target.value)}
@@ -269,6 +267,7 @@ function RentalInspectionApp() {
           <input
             id="propertyAddress"
             type="text"
+            autoComplete="off"
             placeholder="Full street address"
             value={inspectionData.propertyAddress}
             onChange={(e) => updateInspectionData("propertyAddress", e.target.value)}
@@ -280,6 +279,7 @@ function RentalInspectionApp() {
           <input
             id="unitNumber"
             type="text"
+            autoComplete="off"
             value={inspectionData.unitNumber}
             onChange={(e) => updateInspectionData("unitNumber", e.target.value)}
           />
@@ -290,6 +290,7 @@ function RentalInspectionApp() {
           <input
             id="tenantFirstName"
             type="text"
+            autoComplete="off"
             value={inspectionData.tenantFirstName}
             onChange={(e) => updateInspectionData("tenantFirstName", e.target.value)}
           />
@@ -300,6 +301,7 @@ function RentalInspectionApp() {
           <input
             id="tenantLastName"
             type="text"
+            autoComplete="off"
             value={inspectionData.tenantLastName}
             onChange={(e) => updateInspectionData("tenantLastName", e.target.value)}
           />
@@ -310,6 +312,7 @@ function RentalInspectionApp() {
           <input
             id="tenantInitial"
             type="text"
+            autoComplete="off"
             maxLength={1}
             value={inspectionData.tenantInitial}
             onChange={(e) => updateInspectionData("tenantInitial", e.target.value)}
@@ -321,6 +324,7 @@ function RentalInspectionApp() {
           <input
             id="inspectorName"
             type="text"
+            autoComplete="off"
             value={inspectionData.inspectorName}
             onChange={(e) => updateInspectionData("inspectorName", e.target.value)}
           />
@@ -331,6 +335,7 @@ function RentalInspectionApp() {
           <input
             id="inspectionDate"
             type="date"
+            autoComplete="off"
             value={inspectionData.inspectionDate}
             onChange={(e) => updateInspectionData("inspectionDate", e.target.value)}
           />
@@ -382,6 +387,7 @@ function RentalInspectionApp() {
                   <label>Room Name</label>
                   <input
                     type="text"
+                    autoComplete="off"
                     value={r.name}
                     onChange={(e) => updateRoom(r.id, "name", e.target.value)}
                   />
@@ -609,14 +615,15 @@ function RentalInspectionApp() {
 
   /* ---------------------- MOUNT -------------------- */
   return (
-    <div>
+    // Form wrapper blocks Enter/Space from submitting/reloading
+    <form onSubmit={(e) => e.preventDefault()} autoComplete="off">
       <Progress />
       {currentStep === 1 && <Step1 />}
       {currentStep === 2 && <Step2 />}
       {currentStep === 3 && <Step3 />}
       {currentStep === 4 && <Step4 />}
       {currentStep === 5 && <Step5 />}
-    </div>
+    </form>
   );
 }
 
