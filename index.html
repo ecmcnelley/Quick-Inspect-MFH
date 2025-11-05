@@ -51,13 +51,14 @@
   <!-- ✅ React app bundle -->
   <script defer src="bundle.js"></script>
 
-  <!-- ✅ Register service worker -->
-  <script>
-    if ("serviceWorker" in navigator) {
-      window.addEventListener("load", () => {
-        navigator.serviceWorker.register("./service-worker.js").catch(console.error);
-      });
-    }
-  </script>
+<!-- Service worker -->
+<script>
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      <!-- navigator.serviceWorker.register("./service-worker.js").catch(console.error); -->
+    });
+  }
+</script>
+
 </body>
 </html>
