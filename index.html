@@ -1,17 +1,28 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="refresh" content="0; url=jsx.html">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Redirecting...</title>
-  <link rel="icon" href="icons/icon-192.png">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Unit Inspection</title>
+
+  <!-- PWA hooks -->
+  <link rel="manifest" href="manifest.webmanifest" />
+  <meta name="theme-color" content="#0F4C81" />
+  <link rel="icon" href="icons/icon-192.png" />
 </head>
 <body>
-  <p>Redirecting to <a href="jsx.html">jsx.html</a>...</p>
+  <div id="root"></div>
+
+  <!-- The bundled app (built by GitHub Actions) -->
+  <script defer src="bundle.js"></script>
+
+  <!-- Service worker -->
   <script>
-    // Auto-redirect for browsers
-    location.replace('jsx.html');
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./service-worker.js").catch(console.error);
+      });
+    }
   </script>
 </body>
 </html>
