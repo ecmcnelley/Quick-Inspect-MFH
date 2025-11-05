@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Unit Inspection (JSX)</title>
+
+  <!-- PWA hooks -->
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#0F4C81">
+  <link rel="icon" href="icons/icon-192.png">
+</head>
+<body>
+  <div id="root"></div>
+
+  <!-- React + Babel (no build needed) -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone@7/babel.min.js"></script>
+
+  <!-- Your JSX file -->
+  <script type="text/babel" data-presets="react" src="./rental-inspection-app.jsx"></script>
+
+  <!-- Fallback bootstrap: if your JSX defines a global App, mount it -->
+  <script type="text/babel" data-presets="react">
+    // If your JSX defines function App() { ... }, this will mount it.
+    if (typeof App !== "undefined") {
+      const rootEl = document.getElementById("root");
+      const root = ReactDOM.createRoot(rootEl);
+      root.render(React.createElement(App));
+    }
+  </script>
+
+  <!-- Service worker register -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./service-worker.js').catch(console.error);
+      });
+    }
+  </script>
+</body>
+</html>
